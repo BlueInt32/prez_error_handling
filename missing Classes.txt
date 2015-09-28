@@ -1,0 +1,5 @@
+ValidationException
+
+JsonSerializerSettings (used as WebApiConfig.JsonSerializerSettings)
+
+ErrorCodes.config
