@@ -13,7 +13,7 @@ namespace ExampleAPI.Filters
 	{
 		public override void OnActionExecuting(HttpActionContext actionContext)
 		{
-			if (actionContext.ModelState.IsValid == false)
+			if (!actionContext.ModelState.IsValid)
 			{
 				var errorDetailsJson = actionContext.ModelState.ToTApiFormat();
 				throw new ValidationException(errorDetailsJson);

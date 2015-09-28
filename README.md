@@ -4,7 +4,7 @@
 
 ### Errors ? 
 
-By default, ASP.NET creates a 500 error with the exception stack trace. This is not desirable at all.
+By default, ASP.NET creates a 500 error with the exception stack trace details. This is not desirable at all.
 
 In terms of web HTTP communications, there are two main kinds of errors : client errors (Status Code = 4XX) and server errors (Status Code = 5XX)
 
@@ -27,9 +27,11 @@ In terms of API implementation, this should lead us to have some code treating e
 	- undiscovered client errors
 	- this list actually never ends
 	
+	Note : in some cases server errors are known but willingly ignored in order to be detected.
+	
 These errors just need to be logged or any notification action that needs to be taken.
 	
-### Action Filter attributes usages
+### Action Filter and Model attributes usages
 
 Action filters are
 

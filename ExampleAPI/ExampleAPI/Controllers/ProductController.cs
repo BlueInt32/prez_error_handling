@@ -1,4 +1,5 @@
-﻿using ExampleAPI.Filters;
+﻿using ExampleAPI.Exceptions;
+using ExampleAPI.Filters;
 using ExampleAPI.Models;
 using ExampleAPI.Service;
 using System;
@@ -30,5 +31,23 @@ namespace ExampleAPI.Controllers
 			
 			return Request.CreateResponse(HttpStatusCode.Created, productRefModel);
 		}
+
+		//[Route("api/products"), ModelValidation]
+		//public HttpResponseMessage Post([FromBody]ProductModel productRefModel)
+		//{
+		//	if (!ModelState.IsValid)
+		//	{
+		//		var errorDetailsJson = ModelState.ToTApiFormat();
+		//		throw new ValidationException(errorDetailsJson);
+		//	}
+		//	var isCreated = _productService.CreateProduct(this, new ProductCreationArgs
+		//	{
+		//		Name = productRefModel.Name,
+		//		VisibilityLevel = productRefModel.VisibilityLevel,
+		//		Price = productRefModel.Price
+		//	});
+
+		//	return Request.CreateResponse(HttpStatusCode.Created, productRefModel);
+		//}
 	}
 }
