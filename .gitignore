@@ -4,6 +4,7 @@
 *.com
 *.class
 *.dll
+
 *.exe
 *.pdb
 *.dll.config
@@ -59,27 +60,5 @@ ehthumbs.db
 Icon?
 Thumbs.db
 
-
-*.sublime-workspace
-ExternalTools/ffmpeg/licenses/
-ExternalTools/ffmpeg/doc/
-UpgradeLog2.htm
-UpgradeLog.htm
-ExternalTools/ffmpeg/presets/
-VideoLib.Front/css/style.css
-Ableton Project/Samples
-Publish
-node_modules
-Resources
-Harmonizer.Front/Samples/*.wav
-*.asd
-Harmonizer.Front/css/*.css
-Utils/saveAll.sql
-*.Release.config
-*.bak
-Harmonizer.Api/Web.Release.config
-Harmonizer.Front/Web.Release.config
-Harmonizer.Api/Properties/PublishProfiles/
-Harmonizer.Front/Properties/PublishProfiles/Arvixe.pubxml
-Harmonizer.Front/.idea
-Harmonizer.Front/.settings
+!Newtonsoft.Json.dll
+!Newtonsoft.Json.Schema.dll
