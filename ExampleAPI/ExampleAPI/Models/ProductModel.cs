@@ -12,5 +12,7 @@ namespace ExampleAPI.Models
 
 		[ExistingVisibilityLevel]
 		public VisibilityLevel VisibilityLevel { get; set; }
+
+		public CompanyModel Company { get; set; }
 	}
 }

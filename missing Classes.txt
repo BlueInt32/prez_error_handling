@@ -1,5 +1,7 @@
-ValidationException
+Missing files
+- ValidationException
+- JsonSerializerSettings (used as WebApiConfig.JsonSerializerSettings)
+- ErrorCodes.config
 
-JsonSerializerSettings (used as WebApiConfig.JsonSerializerSettings)
-
-ErrorCodes.config
+Vérifier les objets imbriqués
+Vérifier la gestion des champs type struct required

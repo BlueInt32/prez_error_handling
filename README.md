@@ -30,11 +30,26 @@ In terms of API implementation, this should lead us to have some code treating e
 	Note : in some cases server errors are known but willingly ignored in order to be detected.
 	
 These errors just need to be logged or any notification action that needs to be taken.
+
+
+### Error Specification
+
+Error Json output format
+
+
+
+In the code, there are tools different kinds of errors the way we want.
 	
-### Action Filter and Model attributes usages
+### FilterAttributes and ModelAttributes usages
 
-Action filters are
+FilterAttributes are used to decorate actions, controllers (all the actions in the controller) or the complete API.
+There are 3 main kinds of Filter attributes : 
+- ExceptionFilterAttribute
+- ActionFilterAttribute
+- AuthorizationFilterAttribute
 
+Here we will use ExceptionFilterAttribute because it is an extension point to handle exceptions when they occur in actions/controllers/API.
+We will also use ActionFilterAttribute to tell ASP.net to validate the input models
 
 ### Exception catching Filter
 System.Web.Http.ExceptionFilterAttribute
@@ -49,7 +64,9 @@ _Question_ : what if I place an exception filter at two or three different level
 
 
 ### Custom Validation
+In order to perform validation, we will decorate our model with dataAnnotations, or model validation attributes. When deserializing JSON, ASP.NET will create a quite weird ModelErrorCollection for each property in the posted JSON.
 
+Then we want to validate our model when it is bound to the action parameter. 
 
 
 
