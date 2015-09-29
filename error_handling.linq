@@ -255,3 +255,12 @@ public class ExistingVisibilityLevelAttribute : ValidationAttribute
 		return Enum.TryParse<VisibilityLevel>(requestType, out enumValue);
 	}
 }
+
+protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+{
+  decimal netContent = Convert.ToDecimal(value);
+
+	if (netContent == 0)
+		return new ValidationResult("MALFORMED");
+	return ValidationResult.Success;
+}
