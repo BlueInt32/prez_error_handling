@@ -1,0 +1,35 @@
+{
+	"id": "a361f4bf-9104-ab0d-357b-cbe962d4a731",
+	"name": "Prez @ TraceOne",
+	"description": "",
+	"order": [
+		"845c3946-e47e-b1e5-4d42-6f4df657c200"
+	],
+	"folders": [],
+	"timestamp": 1443476250025,
+	"owner": "55563",
+	"remoteLink": "",
+	"public": false,
+	"requests": [
+		{
+			"id": "845c3946-e47e-b1e5-4d42-6f4df657c200",
+			"headers": "Content-Type: application/json\n",
+			"url": "http://localhost:49847/api/products",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1443505751966,
+			"name": "POST Product N1",
+			"description": "",
+			"collectionId": "a361f4bf-9104-ab0d-357b-cbe962d4a731",
+			"responses": [],
+			"rawModeData": "{\n    \"Name\":\"product\",\n    \"VisibilityLevel\":\"Geographical\",\n    \"Price\":\"6\",\n    \"Company\" : {\n        \n    }\n}"
+		}
+	]
+}
