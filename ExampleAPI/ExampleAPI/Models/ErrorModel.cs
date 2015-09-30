@@ -1,15 +1,12 @@
-﻿using ExampleAPI.Exceptions;
+﻿
+using ExampleAPI.Exceptions;
 using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ExampleAPI.Models
 {
-	public class ErrorModel
+    public class ErrorModel
 	{
-		public ErrorModel()
+        public ErrorModel()
 		{
 
 		}
@@ -26,7 +23,7 @@ namespace ExampleAPI.Models
 		}
 
 		public string ErrorCode { get; set; }
-		public JObject ErrorDetails { get; set; }
 		public string Message { get; set; }
-	}
+        public JObject ErrorDetails { get; set; }
+    }
 }

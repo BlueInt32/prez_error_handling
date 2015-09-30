@@ -3,12 +3,12 @@ using System;
 
 namespace ExampleAPI.Models
 {
-	public class CompanyModel
+	public class StoreModel
 	{
 		[TApiRequired]
 		public Int64 Id { get; set; }
 		
-		[TApiRequired]
+		[TApiRequired, TApiStringLength(20)]
 		public string Name { get; set; }
 	}
 }

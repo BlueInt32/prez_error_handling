@@ -1,8 +1,10 @@
 ﻿using ExampleAPI.Filters;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Web.Http;
 
 namespace ExampleAPI
@@ -24,14 +26,27 @@ namespace ExampleAPI
 
 			config.Filters.Add(new GlobalExceptionFilterAttribute());
 
-			//List<string> errors = new List<string>();
+            var jsonformatter = new JsonMediaTypeFormatter
+            {
+                SerializerSettings = ApiJsonSerializerSettings
+            };
 
-			config.Formatters.JsonFormatter.SerializerSettings.Error = (object sender, ErrorEventArgs args) =>
+            config.Formatters.RemoveAt(0);
+            config.Formatters.Insert(0, jsonformatter);
+
+            //config.Formatters.JsonFormatter.SerializerSettings = ApiJsonSerializerSettings;
+
+            config.Formatters.JsonFormatter.SerializerSettings.Error = (object sender, ErrorEventArgs args) =>
 			{
 				
 				//errors.Add(args.ErrorContext.Error.Message);
 				args.ErrorContext.Handled = true;
 			};
 		}
-	}
+        public static readonly JsonSerializerSettings ApiJsonSerializerSettings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+            DateFormatString = "s"
+        };
+    }
 }

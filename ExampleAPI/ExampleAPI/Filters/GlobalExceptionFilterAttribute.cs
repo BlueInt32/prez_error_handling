@@ -13,8 +13,6 @@ namespace ExampleAPI.Filters
 	{
 		public override void OnException(HttpActionExecutedContext actionExecutedContext)
 		{
-			var controller = actionExecutedContext.ActionContext.ControllerContext.ControllerDescriptor.ControllerName;
-
 			if (actionExecutedContext.Exception is ValidationException)
 			{
 				var validationException = actionExecutedContext.Exception as ValidationException;
@@ -23,15 +21,15 @@ namespace ExampleAPI.Filters
 			}
 			else if (actionExecutedContext.Exception is ServiceLayerException)
 			{
-				var genericException = actionExecutedContext.Exception as ServiceLayerException;
-				actionExecutedContext.Response = new ErrorModel(genericException).ToHttpResponseMessage();
+				var serviceLayerException = actionExecutedContext.Exception as ServiceLayerException;
+				actionExecutedContext.Response = new ErrorModel(serviceLayerException).ToHttpResponseMessage();
 				return;
 			}
 			else
 			{
 				actionExecutedContext.Response = new ErrorModel
 				{
-					ErrorCode = "UNKNOWN_ERROR",
+					ErrorCode = Constants.ErrorCodes.Unknown,
 					Message = actionExecutedContext.Exception.Message
 				}.ToHttpResponseMessage();
 				return;

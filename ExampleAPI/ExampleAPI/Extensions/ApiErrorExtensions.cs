@@ -16,7 +16,7 @@ namespace ExampleAPI.Extensions
 	{
 		public static HttpResponseMessage ToHttpResponseMessage(this ErrorModel errorModel)
 		{
-			var json = JsonConvert.SerializeObject(errorModel);//, WebApiConfig.JsonSerializerSettings);
+			var json = JsonConvert.SerializeObject(errorModel, WebApiConfig.ApiJsonSerializerSettings);
 
 			StringContent stringContent = new StringContent(json);
 			stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -40,20 +40,28 @@ namespace ExampleAPI.Extensions
 				foreach (var innerError in m.Errors)
 				{
 					if (propertiesInError.Contains(item))
-						continue; // this property has already been converted to json
+                        // this property has already been converted to json
+                        continue; 
 					if (!item.Contains('.'))
 						continue;
 					string errorTypeDetail = string.Empty;
-					if (innerError.Exception is Exception)
-						errorTypeDetail = "MALFORMED";
+					if (string.IsNullOrWhiteSpace(innerError.ErrorMessage))
+                        // default case when type cannot be resolved 
+                        errorTypeDetail = Constants.PropertyErrorType.Malformed; 
 					else
 						errorTypeDetail = innerError.ErrorMessage;
-					jsonErrors.Add(string.Format("'{0}':'{1}'", item.ExtractPropertyName(), errorTypeDetail));
+					jsonErrors.Add(string.Format("'{0}':'{1}'", 
+                        item.ExtractPropertyName(), 
+                        errorTypeDetail)
+                    );
 					propertiesInError.Add(item);
 				}
 			}
 			return string.Concat("{", string.Join(",", jsonErrors), "}");
 		}
+
+
+
 		private static string ExtractPropertyName(this string fullModelStateProperty)
 		{
 			return fullModelStateProperty.Split('.')[1];
@@ -67,7 +75,10 @@ namespace ExampleAPI.Extensions
 			{
 				if (!ConfiguredCodes.Any(c => c.Code == errorCode))
 					return (HttpStatusCode)500;
-				return (HttpStatusCode)Convert.ToInt32(ConfiguredCodes.FirstOrDefault(c => c.Code == errorCode).HttpStatus);
+				return (HttpStatusCode)Convert.ToInt32(
+                    ConfiguredCodes
+                    .FirstOrDefault(c => c.Code == errorCode).HttpStatus
+                );
 			}
 		}
 

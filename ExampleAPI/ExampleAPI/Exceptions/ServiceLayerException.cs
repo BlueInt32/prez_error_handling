@@ -8,7 +8,9 @@ namespace ExampleAPI.Exceptions
 	public class ServiceLayerException : Exception
 	{
 		public string ErrorCode { get; set; }
-		public ServiceLayerException(string errorCode, string message) : base(message)
+
+		public ServiceLayerException(string errorCode, string message) 
+            : base(message)
 		{
 			ErrorCode = errorCode;
         }

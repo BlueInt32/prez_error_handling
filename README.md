@@ -21,7 +21,7 @@ In terms of API implementation, this should lead us to have some code treating e
 
 - server errors are unhandled exceptions that need to be addressed by Trace One as fast as possible
 	- null reference exceptions
-	- server desynchronizations
+	- servers desynchronizations
 	- out of memory exceptions
 	- dictionary not containing keys
 	- undiscovered client errors

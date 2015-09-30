@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExampleAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,7 @@ namespace ExampleAPI.Exceptions
 			: base("Validation occured, see ErrorDetails for more details.")
 		{
 			ErrorDetailsJson = errorDetailsJson;
-            ErrorCode = "VALIDATION_ERRORS";
+            ErrorCode = Constants.ErrorCodes.ValidationErrors;
 		}
 	}
 }

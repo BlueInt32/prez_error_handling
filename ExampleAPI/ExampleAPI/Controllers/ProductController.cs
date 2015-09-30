@@ -12,42 +12,35 @@ using System.Web.Http;
 
 namespace ExampleAPI.Controllers
 {
-	public class ProductController : ApiController
+    [RoutePrefix("api/products")]
+    public class ProductController : ApiController
 	{
 		IProductService _productService;
-        public ProductController()
-		{
-			_productService = new ProductService();
-		}
-		[Route("api/products"), ModelValidation]
+        public ProductController() { _productService = new ProductService(); }
+
+        [HttpGet, Route("{productId:long}")]
+        public HttpResponseMessage Get([FromUri]Int64 productId)
+        {
+            var product = new ProductModel
+            {
+                Name = "Potato",
+                Price = 8
+            };
+
+            return Request.CreateResponse(HttpStatusCode.OK, product);
+        }
+        
+        [HttpPost, Route(""), ModelValidation]
 		public HttpResponseMessage Post([FromBody]ProductModel productRefModel)
 		{
-			var isCreated = _productService.CreateProduct(this, new ProductCreationArgs
+			_productService.CreateProduct(this, 
+                new ProductCreationArgs
 			{
 				Name = productRefModel.Name,
-				VisibilityLevel = productRefModel.VisibilityLevel,
-				Price = productRefModel.Price
+				Price = productRefModel.Price.Value
 			});
 			
 			return Request.CreateResponse(HttpStatusCode.Created, productRefModel);
 		}
-
-		//[Route("api/products"), ModelValidation]
-		//public HttpResponseMessage Post([FromBody]ProductModel productRefModel)
-		//{
-		//	if (!ModelState.IsValid)
-		//	{
-		//		var errorDetailsJson = ModelState.ToTApiFormat();
-		//		throw new ValidationException(errorDetailsJson);
-		//	}
-		//	var isCreated = _productService.CreateProduct(this, new ProductCreationArgs
-		//	{
-		//		Name = productRefModel.Name,
-		//		VisibilityLevel = productRefModel.VisibilityLevel,
-		//		Price = productRefModel.Price
-		//	});
-
-		//	return Request.CreateResponse(HttpStatusCode.Created, productRefModel);
-		//}
 	}
 }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿
+
+
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 
 namespace ExampleAPI.Models
 {
-	public class ErrorCodeConfigElement : ConfigurationElement
+    public class ErrorCodeConfigElement : ConfigurationElement
 	{
 		[ConfigurationProperty("code", IsRequired = true)]
 		public string Code
@@ -72,7 +72,7 @@ namespace ExampleAPI.Models
 	{
 		public static ErrorCodesConfig GetConfig()
 		{
-			return (ErrorCodesConfig)System.Configuration.ConfigurationManager.GetSection("ApiErrorCodes") ?? new ErrorCodesConfig();
+			return (ErrorCodesConfig)ConfigurationManager.GetSection("ApiErrorCodes") ?? new ErrorCodesConfig();
 		}
 
 		[ConfigurationProperty("ErrorCodes")]
