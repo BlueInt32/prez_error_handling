@@ -23,11 +23,15 @@ namespace ExampleAPI.ValidationAttributes
     
     public class DecimalNotNullOrZeroAttribute : ValidationAttribute
     {
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        protected override ValidationResult IsValid(
+            object value, 
+            ValidationContext validationContext)
         {
-            decimal netContent = Convert.ToDecimal(value);
-
-            if (netContent == 0)
+            var nullableDecimal = value as decimal?;
+            if(nullableDecimal == null)
+                return new ValidationResult(Constants.PropertyErrorType.Missing);
+            
+            if (nullableDecimal == 0)
                 return new ValidationResult(Constants.PropertyErrorType.ForbiddenValue);
             return ValidationResult.Success;
         }
