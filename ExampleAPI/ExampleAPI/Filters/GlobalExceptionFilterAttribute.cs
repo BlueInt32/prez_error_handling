@@ -30,7 +30,7 @@ namespace ExampleAPI.Filters
 				actionExecutedContext.Response = new ErrorModel
 				{
 					ErrorCode = Constants.ErrorCodes.Unknown,
-					ErrorMessage = actionExecutedContext.Exception.Message
+					Message = actionExecutedContext.Exception.Message
 				}.ToHttpResponseMessage();
 				return;
 			}

@@ -21,16 +21,16 @@ namespace ExampleAPI.Models
 		{
 			ErrorCode = validationException.ErrorCode;
 			ErrorDetails = validationException.ErrorDetails;
-			ErrorMessage = validationException.Message;
+			Message = validationException.Message;
 		}
 		public ErrorModel(ScenarioException tApiGenericException)
 		{
 			ErrorCode = tApiGenericException.ErrorCode;
-			ErrorMessage = tApiGenericException.Message;
+			Message = tApiGenericException.Message;
 		}
         
         public string ErrorCode { get; set; }
-		public string ErrorMessage { get; set; }
+		public string Message { get; set; }
         public JObject ErrorDetails { get; set; }
 
         public HttpResponseMessage ToHttpResponseMessage()

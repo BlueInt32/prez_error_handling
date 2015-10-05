@@ -5,13 +5,13 @@ namespace ExampleAPI.Models
 {
 	public class ProductModel
 	{
-		[TApiStringLength(10)]
+		[TApiRequired, TApiStringLength(10)]
 		public string Name { get; set; }
 		
 		[DecimalNotNullOrZeroAttribute]
 		public decimal? Price { get; set; }
         
-        [ListNotNullOrEmptyAttribute]
+        //[ListNotNullOrEmptyAttribute]
         public List<StoreModel> Stores { get; set; }
 	}
 }

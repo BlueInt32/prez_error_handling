@@ -33,14 +33,14 @@ namespace ExampleAPI.Controllers
         [HttpPost, Route(""), ModelValidation]
 		public HttpResponseMessage Post([FromBody]ProductModel productRefModel)
 		{
-            _productService.CreateProduct(this, null);
-   //             new ProductCreationArgs
-			//{
-			//	Name = productRefModel.Name,
-			//	Price = productRefModel.Price.Value
-			//});
-			
-			return Request.CreateResponse(HttpStatusCode.Created, productRefModel);
+            _productService.CreateProduct(this,
+            new ProductCreationArgs
+            {
+                Name = productRefModel.Name,
+                Price = productRefModel.Price.Value
+            });
+
+            return Request.CreateResponse(HttpStatusCode.Created, productRefModel);
 		}
 	}
 }
