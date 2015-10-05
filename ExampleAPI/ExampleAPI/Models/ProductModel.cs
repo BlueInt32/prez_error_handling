@@ -11,6 +11,7 @@ namespace ExampleAPI.Models
 		[DecimalNotNullOrZeroAttribute]
 		public decimal? Price { get; set; }
         
-		public List<StoreModel> Stores { get; set; }
+        [ListNotNullOrEmptyAttribute]
+        public List<StoreModel> Stores { get; set; }
 	}
 }

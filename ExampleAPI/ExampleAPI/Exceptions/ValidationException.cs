@@ -1,4 +1,5 @@
 ﻿using ExampleAPI.Models;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace ExampleAPI.Exceptions
 	public class ValidationException : Exception
 	{
 		public string ErrorCode { get; set; }
-		public string ErrorDetailsJson { get; set; }
+		public JObject ErrorDetails { get; set; }
 
-		public ValidationException(string errorDetailsJson) 
+		public ValidationException(JObject errorDetails) 
 			: base("Validation occured, see ErrorDetails for more details.")
 		{
-			ErrorDetailsJson = errorDetailsJson;
+			ErrorDetails = errorDetails;
             ErrorCode = Constants.ErrorCodes.ValidationErrors;
 		}
 	}

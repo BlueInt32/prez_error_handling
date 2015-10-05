@@ -1,90 +1,40 @@
 ﻿using ExampleAPI.Models;
-using Newtonsoft.Json;
-using System;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web;
 using System.Web.Http.ModelBinding;
 
 namespace ExampleAPI.Extensions
 {
 
-	public static class ApiErrorExtensions
+    public static class ApiErrorExtensions
 	{
-		public static HttpResponseMessage ToHttpResponseMessage(this ErrorModel errorModel)
+		public static JObject ToTApiFormat(this ModelStateDictionary modelState)
 		{
-			var json = JsonConvert.SerializeObject(errorModel, WebApiConfig.ApiJsonSerializerSettings);
+            JObject validationErrorsDescriptor = new JObject();
 
-			StringContent stringContent = new StringContent(json);
-			stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-
-			HttpResponseMessage httpResponseMessage = new HttpResponseMessage
-			{
-				Content = stringContent,
-				StatusCode = ResolveHttpStatus(errorModel.ErrorCode)
-			};
-
-			return httpResponseMessage;
-		}
-
-		public static string ToTApiFormat(this ModelStateDictionary modelState)
-		{
-			List<string> jsonErrors = new List<string>();
 			List<string> propertiesInError = new List<string>();
-			foreach (var item in modelState.Keys)
+            foreach (var modelPropertyName in modelState.Keys)
 			{
-				ModelState m = modelState[item];
-				foreach (var innerError in m.Errors)
+				ModelState propertyState = modelState[modelPropertyName];
+				foreach (var innerError in propertyState.Errors)
 				{
-					if (propertiesInError.Contains(item))
-                        // this property has already been converted to json
+					if (propertiesInError.Contains(modelPropertyName))
+                        // this property error has already been added
                         continue; 
-					if (!item.Contains('.'))
-						continue;
-					string errorTypeDetail = string.Empty;
-					if (string.IsNullOrWhiteSpace(innerError.ErrorMessage))
-                        // default case when type cannot be resolved 
-                        errorTypeDetail = Constants.PropertyErrorType.Malformed; 
-					else
-						errorTypeDetail = innerError.ErrorMessage;
-					jsonErrors.Add(string.Format("'{0}':'{1}'", 
-                        item.ExtractPropertyName(), 
-                        errorTypeDetail)
-                    );
-					propertiesInError.Add(item);
+					string errorTypeDetail = string.IsNullOrEmpty(innerError.ErrorMessage) 
+                        ? Constants.PropertyErrorType.Malformed // json.net parsing error
+                        : innerError.ErrorMessage; // t1 validation
+
+                    validationErrorsDescriptor[modelPropertyName.ExtractPropertyName()] = errorTypeDetail;
+					propertiesInError.Add(modelPropertyName);
 				}
 			}
-			return string.Concat("{", string.Join(",", jsonErrors), "}");
+			return validationErrorsDescriptor;
 		}
-
-
-
+        
 		private static string ExtractPropertyName(this string fullModelStateProperty)
 		{
-			return fullModelStateProperty.Split('.')[1];
-		}
-
-		private static HttpStatusCode ResolveHttpStatus(string errorCode)
-		{
-			if (string.IsNullOrWhiteSpace(errorCode))
-				return (HttpStatusCode)200;
-			else
-			{
-				if (!ConfiguredCodes.Any(c => c.Code == errorCode))
-					return (HttpStatusCode)500;
-				return (HttpStatusCode)Convert.ToInt32(
-                    ConfiguredCodes
-                    .FirstOrDefault(c => c.Code == errorCode).HttpStatus
-                );
-			}
-		}
-
-		private static IEnumerable<ErrorCodeConfigElement> ConfiguredCodes
-		{
-			get { return ErrorCodesList.CodesList; }
+			return fullModelStateProperty.Substring(fullModelStateProperty.IndexOf('.') + 1);
 		}
 	}
 }

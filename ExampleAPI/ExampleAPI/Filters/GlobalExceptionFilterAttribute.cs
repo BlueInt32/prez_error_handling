@@ -19,9 +19,9 @@ namespace ExampleAPI.Filters
 				actionExecutedContext.Response = new ErrorModel(validationException).ToHttpResponseMessage();
 				return;
 			}
-			else if (actionExecutedContext.Exception is ServiceLayerException)
+			else if (actionExecutedContext.Exception is ScenarioException)
 			{
-				var serviceLayerException = actionExecutedContext.Exception as ServiceLayerException;
+				var serviceLayerException = actionExecutedContext.Exception as ScenarioException;
 				actionExecutedContext.Response = new ErrorModel(serviceLayerException).ToHttpResponseMessage();
 				return;
 			}
@@ -30,7 +30,7 @@ namespace ExampleAPI.Filters
 				actionExecutedContext.Response = new ErrorModel
 				{
 					ErrorCode = Constants.ErrorCodes.Unknown,
-					Message = actionExecutedContext.Exception.Message
+					ErrorMessage = actionExecutedContext.Exception.Message
 				}.ToHttpResponseMessage();
 				return;
 			}

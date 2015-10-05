@@ -5,11 +5,11 @@ using System.Web;
 
 namespace ExampleAPI.Exceptions
 {
-	public class ServiceLayerException : Exception
+	public class ScenarioException : Exception
 	{
 		public string ErrorCode { get; set; }
 
-		public ServiceLayerException(string errorCode, string message) 
+		public ScenarioException(string errorCode, string message) 
             : base(message)
 		{
 			ErrorCode = errorCode;

@@ -1,5 +1,6 @@
 ﻿using ExampleAPI.Models;
 using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExampleAPI.ValidationAttributes
@@ -32,6 +33,23 @@ namespace ExampleAPI.ValidationAttributes
                 return new ValidationResult(Constants.PropertyErrorType.Missing);
             
             if (nullableDecimal == 0)
+                return new ValidationResult(Constants.PropertyErrorType.ForbiddenValue);
+            return ValidationResult.Success;
+        }
+    }
+
+
+    public class ListNotNullOrEmptyAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(
+            object value,
+            ValidationContext validationContext)
+        {
+            var nullableDecimal = value as IList;
+            if (nullableDecimal == null)
+                return new ValidationResult(Constants.PropertyErrorType.Missing);
+
+            if (nullableDecimal.Count == 0)
                 return new ValidationResult(Constants.PropertyErrorType.ForbiddenValue);
             return ValidationResult.Success;
         }

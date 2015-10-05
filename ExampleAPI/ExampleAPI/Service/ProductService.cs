@@ -14,7 +14,7 @@ namespace ExampleAPI.Service
 		public void CreateProduct(object sender, ProductCreationArgs productCreationArgs)
 		{
 			if (productCreationArgs.Price > 10)
-				throw new ServiceLayerException("PRICE_TOO_DAMN_HIGH", "This price is too damn high !");
+				throw new ScenarioException("PRICE_TOO_DAMN_HIGH", "This price is too damn high !");
 
             #region Code actually saving the product
             //return true;
