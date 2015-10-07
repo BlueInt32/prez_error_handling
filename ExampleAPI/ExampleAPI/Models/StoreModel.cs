@@ -5,10 +5,10 @@ namespace ExampleAPI.Models
 {
 	public class StoreModel
 	{
-		[TApiRequired]
+		[T1Required]
 		public Int64 Id { get; set; }
 		
-		[TApiRequired, TApiStringLength(20)]
+		[T1Required, T1StringLength(20)]
 		public string Name { get; set; }
 	}
 }

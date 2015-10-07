@@ -5,24 +5,24 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ExampleAPI.ValidationAttributes
 {
-    public class TApiRequiredAttribute : RequiredAttribute
+    public class T1RequiredAttribute : RequiredAttribute
     {
-        public TApiRequiredAttribute()
+        public T1RequiredAttribute()
         {
             ErrorMessage = Constants.PropertyErrorType.Missing;
         }
     }
 
-    public class TApiStringLength : StringLengthAttribute
+    public class T1StringLength : StringLengthAttribute
     {
-        public TApiStringLength(int maximumLength)
+        public T1StringLength(int maximumLength)
             : base(maximumLength)
         {
             ErrorMessage = Constants.PropertyErrorType.TooLong;
         }
     }
     
-    public class DecimalNotNullOrZeroAttribute : ValidationAttribute
+    public class T1DecimalNotNullOrZeroAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(
             object value, 
@@ -39,7 +39,7 @@ namespace ExampleAPI.ValidationAttributes
     }
 
 
-    public class ListNotNullOrEmptyAttribute : ValidationAttribute
+    public class T1ListNotNullOrEmptyAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(
             object value,
